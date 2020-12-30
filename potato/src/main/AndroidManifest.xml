@@ -2,4 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uy.com.temperoni.potato">
 
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
 </manifest>

@@ -1,4 +1,4 @@
-package uy.com.temperoni.potato
+package uy.com.temperoni.potato.cache
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -7,6 +7,7 @@ import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
+import uy.com.temperoni.potato.log.Logger
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -18,7 +19,10 @@ class FileHandler {
     companion object {
 
         fun deleteCachedFiles(context: Context) {
-            val cacheFolder = getCacheFolder(context)
+            val cacheFolder =
+                getCacheFolder(
+                    context
+                )
 
             val msg = if (cacheFolder?.deleteRecursively() == true) {
                 "Cache cleared"
@@ -26,7 +30,7 @@ class FileHandler {
                 "Error while clearing cache"
             }
 
-            Log.i(FileHandler::class.simpleName, msg)
+            Logger.logInfo(msg)
         }
 
         private fun getCacheFolder(context: Context): File? {
@@ -46,7 +50,10 @@ class FileHandler {
 
         val encodedURL = encodeUrl(url) ?: return
 
-        val file = File(getCacheFolder(context), "${encodedURL}.jpg")
+        val file = File(
+            getCacheFolder(
+                context
+            ), "${encodedURL}.jpg")
 
         try {
             val stream: OutputStream = FileOutputStream(file)
@@ -57,9 +64,9 @@ class FileHandler {
 
             stream.close()
 
-            Log.i(javaClass.simpleName, "Image saved to cache: ${Uri.parse(file.absolutePath)}")
+            Logger.logInfo("Image saved to cache: ${Uri.parse(file.absolutePath)}")
         } catch (e: IOException) {
-            Log.i(javaClass.simpleName, "Error while saving image to cache: ${e.message}")
+            Logger.logInfo("Error while saving image to cache: ${e.message}")
         }
     }
 
@@ -69,9 +76,12 @@ class FileHandler {
     ): Bitmap? {
         val encodedURL = encodeUrl(url) ?: return null
 
-        val file = File(getCacheFolder(context), "${encodedURL}.jpg")
+        val file = File(
+            getCacheFolder(
+                context
+            ), "${encodedURL}.jpg")
 
-        Log.i(javaClass.simpleName, "Image fetched from cache: ${Uri.parse(file.absolutePath)}")
+        Logger.logInfo("Image fetched from cache: ${Uri.parse(file.absolutePath)}")
 
         return BitmapFactory.decodeFile(file.path, null)
     }

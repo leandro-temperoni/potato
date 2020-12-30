@@ -1,18 +1,16 @@
-package uy.com.temperoni.potato
+package uy.com.temperoni.potato.network
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
 
 
-class UrlHandler {
+class ImageFetcher {
 
-    suspend fun fetchImage(urlString: String): Bitmap? {
+    suspend fun fetch(urlString: String): Bitmap? {
         return withContext(Dispatchers.IO) {
             val url = URL(urlString)
 
