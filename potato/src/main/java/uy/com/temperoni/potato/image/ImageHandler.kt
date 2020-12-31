@@ -11,20 +11,23 @@ import kotlinx.coroutines.withContext
 import uy.com.temperoni.potato.cache.FileHandler
 import uy.com.temperoni.potato.log.Logger
 import uy.com.temperoni.potato.network.ImageFetcher
+import uy.com.temperoni.potato.view.PotatoImageView
 
 class ImageHandler {
 
-    fun setImage(view: ImageView, url: String) {
+    private val fileHandler = FileHandler()
+    private val imageFetcher = ImageFetcher()
+
+    fun setImage(view: PotatoImageView, url: String) {
         GlobalScope.launch(Dispatchers.Main) {
+            var bitmap: Bitmap?
 
-            var bitmap: Bitmap? = FileHandler()
-                .readToInternalStorage(view.context, url)
+            withContext(Dispatchers.IO) {
+                bitmap = fileHandler.readToInternalStorage(view.context, url)
 
-            if (bitmap == null) {
-                withContext(Dispatchers.IO) {
-                    bitmap = ImageFetcher().fetch(url)
-                    FileHandler()
-                        .saveToInternalStorage(view.context, bitmap, url)
+                if (bitmap == null) {
+                    bitmap = imageFetcher.fetch(url)
+                    fileHandler.saveToInternalStorage(view.context, bitmap, url)
                 }
             }
 
@@ -39,15 +42,9 @@ class ImageHandler {
     }
 
     private fun onSuccess(
-        view: ImageView,
+        view: PotatoImageView,
         bitmap: Bitmap
     ) {
-        with(view) {
-            setImageBitmap(bitmap)
-            startAnimation(AlphaAnimation(0f, 1f).apply {
-                interpolator = LinearInterpolator()
-                duration = 500
-            })
-        }
+        view.setBitmap(bitmap)
     }
 }

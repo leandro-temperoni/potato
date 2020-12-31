@@ -21,28 +21,28 @@
             android:text="Clear cache"
             tools:ignore="HardcodedText" />
 
-        <ImageView
+        <uy.com.temperoni.potato.view.PotatoImageView
             android:id="@+id/image_view_one"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="30dp"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <uy.com.temperoni.potato.view.PotatoImageView
             android:id="@+id/image_view_two"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="30dp"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <uy.com.temperoni.potato.view.PotatoImageView
             android:id="@+id/image_view_three"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="30dp"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <uy.com.temperoni.potato.view.PotatoImageView
             android:id="@+id/image_view_four"
             android:layout_width="match_parent"
             android:layout_height="200dp"
