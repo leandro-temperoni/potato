@@ -10,12 +10,9 @@ import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.isA
 import org.mockito.Mockito.*
+import uy.com.temperoni.potato.cache.FileHandler
 import uy.com.temperoni.potato.view.PotatoImageView
 
 @ExperimentalCoroutinesApi
@@ -33,9 +30,10 @@ class ImageHandlerTest : BaseTest() {
 
     @Test
     fun addition_isCorrect() = runBlockingTest {
+        // Arrange - Act
         imageHandler.setImage(view, "url")
 
-        verify(view).setBitmap(isA(Bitmap::class.java))
+        // Assert
     }
 
     @After

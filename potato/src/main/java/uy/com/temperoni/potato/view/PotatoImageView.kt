@@ -6,8 +6,11 @@ import android.util.AttributeSet
 import android.view.animation.AlphaAnimation
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.widget.AppCompatImageView
+import uy.com.temperoni.potato.image.ImageHandler
 
 class PotatoImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {
+
+    private val imageHandler = ImageHandler()
 
     fun setBitmap(bitmap: Bitmap) {
         setImageBitmap(bitmap)
@@ -15,5 +18,9 @@ class PotatoImageView(context: Context, attrs: AttributeSet) : AppCompatImageVie
             interpolator = LinearInterpolator()
             duration = 500
         })
+    }
+
+    fun setUrl(url: String) {
+        imageHandler.setImage(this, url)
     }
 }
